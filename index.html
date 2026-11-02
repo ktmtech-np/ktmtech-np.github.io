@@ -183,7 +183,7 @@
           <span class="contact-label">🇰🇷 Korea</span>
           <strong>+82 10-9682-0591</strong>
         </a>
-        <a class="contact-card" href="tel:+9779849079513">
+        <a class="contact-card" id="nepal-phone" href="tel:+9779849079513" data-until="2026-11-22T00:00:00+05:45">
           <span class="contact-label">🇳🇵 Nepal</span>
           <strong>+977 9849079513</strong>
           <span class="contact-note">Available Nov 07 – Nov 21, 2026</span>
@@ -211,6 +211,10 @@
         try { localStorage.setItem('theme', root.dataset.theme); } catch (e) {}
       });
       document.getElementById('year').textContent = new Date().getFullYear();
+
+      // Hide the Nepal number once Nov 21 is over in Nepal time.
+      var np = document.getElementById('nepal-phone');
+      if (np && Date.now() >= Date.parse(np.dataset.until)) np.remove();
     })();
   </script>
 </body>
