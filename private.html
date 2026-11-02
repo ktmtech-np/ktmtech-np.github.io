@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Private Repository — KTM Tech</title>
+  <meta name="robots" content="noindex">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%23c2410c'/><text x='16' y='22' font-family='monospace' font-size='16' font-weight='700' fill='white' text-anchor='middle'>kt</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .private { min-height: calc(100vh - 61px - 90px); display: grid; place-items: center; padding-top: 64px; padding-bottom: 64px; }
+    .private-card { max-width: 620px; width: 100%; background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 44px 40px; box-shadow: var(--shadow); }
+    .lock { width: 56px; height: 56px; border-radius: 14px; display: grid; place-items: center; background: var(--accent-soft); font-size: 26px; margin-bottom: 22px; }
+    .private-card h1 { font-size: clamp(28px, 5vw, 38px); margin: 0 0 14px; }
+    .private-card p { color: var(--muted); margin: 0 0 16px; }
+    .repo-name { font: 600 14px "JetBrains Mono", monospace; color: var(--accent); margin: 0 0 10px; }
+    .private-card ul { margin: 0 0 26px; padding-left: 20px; color: var(--muted); }
+    .private-card li { margin-bottom: 6px; }
+    .private-card .cta { margin-top: 8px; }
+    @media (max-width: 520px) { .private-card { padding: 32px 22px; } }
+  </style>
+</head>
+<body>
+  <header class="nav">
+    <div class="wrap nav-inner">
+      <a class="brand" href="./"><span class="logo">kt</span> ktmtech-np</a>
+      <nav>
+        <a href="./#projects">Projects</a>
+        <a href="./#contact">Contact</a>
+        <button id="theme" class="theme-btn" aria-label="Toggle dark mode">◐</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap private">
+    <div class="private-card">
+      <div class="lock" aria-hidden="true">🔒</div>
+      <p class="repo-name" id="repo">ktmtech-np</p>
+      <h1>This repository is private</h1>
+      <p id="intro">
+        The source code for this project is kept in a private GitHub repository, so it can't be
+        browsed publicly.
+      </p>
+      <p>If you'd like to see it, I'm happy to:</p>
+      <ul>
+        <li>give you read access to the repository</li>
+        <li>walk you through the code and design on a call</li>
+        <li>run a live demo of the working system</li>
+      </ul>
+      <p>Send me an email saying which project you're interested in and why.</p>
+      <div class="cta">
+        <a class="btn primary" id="mail" href="mailto:sawrose.chalise@gmail.com?subject=Repository%20access">Request access</a>
+        <a class="btn" href="./#projects">← Back to projects</a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="wrap footer">
+    <p>© <span id="year">2026</span> KTM Tech · Kathmandu</p>
+  </footer>
+
+  <script>
+    (function () {
+      var root = document.documentElement, btn = document.getElementById('theme');
+      try { var t = localStorage.getItem('theme'); if (t) root.dataset.theme = t; } catch (e) {}
+      btn.addEventListener('click', function () {
+        var dark = root.dataset.theme ? root.dataset.theme === 'dark'
+          : matchMedia('(prefers-color-scheme: dark)').matches;
+        root.dataset.theme = dark ? 'light' : 'dark';
+        try { localStorage.setItem('theme', root.dataset.theme); } catch (e) {}
+      });
+      document.getElementById('year').textContent = new Date().getFullYear();
+
+      // Show which project the visitor came from (?repo=naksa).
+      var names = { naksa: 'Naksa', 'chat-app': 'Cipher', ktmail: 'ktmail' };
+      var repo = new URLSearchParams(location.search).get('repo');
+      if (repo && names[repo]) {
+        document.getElementById('repo').textContent = 'ktmtech-np/' + repo;
+        document.getElementById('intro').textContent = 'The source code for ' + names[repo] +
+          ' is kept in a private GitHub repository, so it can’t be browsed publicly.';
+        document.getElementById('mail').href = 'mailto:sawrose.chalise@gmail.com?subject=' +
+          encodeURIComponent('Access to ' + names[repo] + ' repository');
+        document.title = names[repo] + ' — Private Repository';
+      }
+    })();
+  </script>
+</body>
+</html>
