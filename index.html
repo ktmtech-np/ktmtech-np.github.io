@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>KTM Tech — Projects</title>
+  <meta name="description" content="Self-hosted systems built from the protocol up: an end-to-end encrypted chat platform, a mail server in one Rust binary, and a Nepal map stack.">
+  <meta property="og:title" content="KTM Tech — Projects">
+  <meta property="og:description" content="Encrypted chat, a Rust mail server, and a self-hosted Nepal map — built end to end.">
+  <meta property="og:image" content="assets/img/naksa-map-light.webp">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%23c2410c'/><text x='16' y='22' font-family='monospace' font-size='16' font-weight='700' fill='white' text-anchor='middle'>kt</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="nav">
+    <div class="wrap nav-inner">
+      <a class="brand" href="#top"><span class="logo">kt</span> ktmtech-np</a>
+      <nav>
+        <a href="#projects">Projects</a>
+        <a href="#approach">Approach</a>
+        <a href="#contact">Contact</a>
+        <button id="theme" class="theme-btn" aria-label="Toggle dark mode">◐</button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero wrap">
+      <p class="eyebrow">Kathmandu, Nepal</p>
+      <h1>Self-hosted systems,<br>built from the protocol up.</h1>
+      <p class="lede">
+        An end-to-end encrypted chat platform, a complete mail server in one Rust binary,
+        and a map of Nepal with its own tiles, search and routing. Each one is designed,
+        built and tested end to end.
+      </p>
+      <div class="stats">
+        <div><strong>3</strong><span>systems</span></div>
+        <div><strong>2,600+</strong><span>automated checks</span></div>
+        <div><strong>Go · Rust · Erlang</strong><span>core languages</span></div>
+      </div>
+      <div class="cta">
+        <a class="btn primary" href="#projects">See the projects</a>
+        <a class="btn" href="https://github.com/ktmtech-np" target="_blank" rel="noopener">GitHub ↗</a>
+      </div>
+    </section>
+
+    <section id="projects" class="wrap">
+      <h2 class="section-title">Projects</h2>
+
+      <!-- Naksa -->
+      <article class="project">
+        <div class="project-media">
+          <figure class="shot main"><img src="assets/img/naksa-map-light.webp" alt="Naksa public map of Kathmandu with roads, land use and POI icons" loading="lazy"></figure>
+          <div class="shot-row">
+            <figure class="shot"><img src="assets/img/naksa-map-dark-3d-nepali.webp" alt="Dark theme with 3D buildings and Nepali labels" loading="lazy"></figure>
+            <figure class="shot"><img src="assets/img/naksa-directions.webp" alt="Driving and walking directions" loading="lazy"></figure>
+            <figure class="shot"><img src="assets/img/naksa-land-split-editor.webp" alt="Land parcel split editor" loading="lazy"></figure>
+          </div>
+        </div>
+        <div class="project-body">
+          <p class="kicker">Maps · GIS</p>
+          <h3>Naksa <span class="np">नक्सा</span></h3>
+          <p>
+            A self-hosted map of Nepal: OpenStreetMap data in PostGIS, our own vector tiles,
+            a MapLibre GL app, and OSRM routing for driving and walking. A map editor adds the
+            local detail OSM lacks: houses, shops, galli alleys, entrances and road closures.
+            It also ships a land-records demo, an "online Malpot".
+          </p>
+          <ul class="points">
+            <li>Search tolerant of typos, in Devanagari or English, in about 0.1&nbsp;s across Nepal</li>
+            <li>Routes go to a place's mapped entrance, using our own alleys and respecting closures</li>
+            <li>Upload GeoJSON, KML, GPX or Shapefiles, reprojected from UTM, MUTM or Everest</li>
+            <li>Parcel splits to exact areas in ropani-aana-paisa-daam, bigha or m²</li>
+          </ul>
+          <ul class="tags"><li>Go</li><li>PostGIS</li><li>MapLibre GL</li><li>OSRM</li><li>Vector tiles</li></ul>
+          <a class="link" href="https://github.com/ktmtech-np/naksa" target="_blank" rel="noopener">View repository ↗</a>
+        </div>
+      </article>
+
+      <!-- Cipher -->
+      <article class="project reverse">
+        <div class="project-media">
+          <div class="mock chat" aria-hidden="true">
+            <div class="mock-bar"><span></span><span></span><span></span><em>Cipher</em></div>
+            <div class="chat-body">
+              <div class="bubble in">Are we still on for the call?</div>
+              <div class="bubble out">Yes, starting now 📞</div>
+              <div class="bubble in file">🔒 site-plan.pdf · 4.2 MB</div>
+              <div class="call">
+                <div class="tile">A</div><div class="tile">S</div><div class="tile">R</div><div class="tile live">You</div>
+              </div>
+              <p class="e2ee">🔒 Every message, file and video frame is end-to-end encrypted</p>
+            </div>
+          </div>
+        </div>
+        <div class="project-body">
+          <p class="kicker">Messaging · Cryptography</p>
+          <h3>Cipher</h3>
+          <p>
+            An end-to-end encrypted chat platform: text, files and images, 1:1 voice and video
+            calls, and encrypted group calls and video conferences on LiveKit. The X3DH and Double
+            Ratchet protocol lives in one Go crypto core, compiled to WebAssembly for the browser
+            and gomobile for Android and iOS.
+          </p>
+          <ul class="points">
+            <li>Private keys are non-extractable WebCrypto keys and never exist in JavaScript</li>
+            <li>A three-node Erlang realtime cluster loses no message and drops no call when a node is killed</li>
+            <li>Encrypted files up to 100&nbsp;MB, with thumbnails and video processed before encryption</li>
+            <li>Prometheus, Loki and Grafana, a strict CSP, and 2,036 automated checks</li>
+          </ul>
+          <ul class="tags"><li>Go</li><li>Erlang/OTP</li><li>WebAssembly</li><li>WebRTC</li><li>LiveKit</li><li>Kubernetes</li></ul>
+          <a class="link" href="https://github.com/ktmtech-np/chat-app" target="_blank" rel="noopener">View repository ↗</a>
+        </div>
+      </article>
+
+      <!-- ktmail -->
+      <article class="project">
+        <div class="project-media">
+          <div class="mock term" aria-hidden="true">
+            <div class="mock-bar"><span></span><span></span><span></span><em>ktmail</em></div>
+<pre><span class="c">$</span> ktmailctl migrate --from /etc/postfix --from /etc/dovecot
+<span class="ok">✓</span> main.cf, master.cf      → ktmail.toml
+<span class="ok">✓</span> dovecot.conf, 10-auth   → ktmail.toml
+<span class="ok">✓</span> Maildir UIDs preserved  (12,408 messages)
+<span class="ok">✓</span> Pigeonhole Sieve scripts (37)
+<span class="c">$</span> ktmail serve
+<span class="d">smtp</span>  :25  <span class="d">submission</span> :587 :465
+<span class="d">imap</span>  :143 :993  <span class="d">pop3</span> :110 :995
+<span class="d">sieve</span> :4190  <span class="d">webmail</span> :8443
+<span class="ok">ready</span> — one process, one config file</pre>
+          </div>
+        </div>
+        <div class="project-body">
+          <p class="kicker">Email · Systems</p>
+          <h3>ktmail</h3>
+          <p>
+            A complete mail server in one Rust binary, built as a drop-in replacement for Postfix and
+            Dovecot. It handles SMTP, submission, LMTP, IMAP4rev2, POP3, Sieve and ManageSieve, with
+            SPF, DKIM, DMARC and ARC, and comes with a Gmail-style webmail.
+          </p>
+          <ul class="points">
+            <li>Reads existing Dovecot Maildirs with the same UIDs, so clients don't download everything again</li>
+            <li>No <code>unsafe</code> code, a Landlock sandbox, and a fuzzed parser for every protocol</li>
+            <li>DANE, MTA-STS, SCRAM with channel binding, and OAuth logins</li>
+            <li>Full-text search, including the text inside Office attachments, plus 647 tests</li>
+          </ul>
+          <ul class="tags"><li>Rust</li><li>SMTP</li><li>IMAP</li><li>Sieve</li><li>TLS 1.3</li></ul>
+          <a class="link" href="https://github.com/ktmtech-np/ktmail" target="_blank" rel="noopener">View repository ↗</a>
+        </div>
+      </article>
+    </section>
+
+    <section id="approach" class="wrap approach">
+      <h2 class="section-title">Approach</h2>
+      <div class="grid3">
+        <div class="card">
+          <h4>Plan, then build in phases</h4>
+          <p>Every project starts with a written plan. Each phase has exit criteria and commands that verify it, and decisions are recorded when the build departs from the plan.</p>
+        </div>
+        <div class="card">
+          <h4>Own the stack</h4>
+          <p>Self-hosted from the data to the protocol: our own tiles, our own crypto core, our own mail server, run with standard tools on hardware we control.</p>
+        </div>
+        <div class="card">
+          <h4>Prove it works</h4>
+          <p>Thousands of automated checks, fuzzing, failure tests that kill nodes mid-call, and end-to-end browser tests with screenshots.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="wrap contact">
+      <h2>Let's talk</h2>
+      <p>Interested in one of these projects, or in building something similar?</p>
+      <div class="cta">
+        <a class="btn primary" href="mailto:sawrose.chalise@gmail.com">Email me</a>
+        <a class="btn" href="https://github.com/ktmtech-np" target="_blank" rel="noopener">github.com/ktmtech-np ↗</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="wrap footer">
+    <p>© <span id="year">2026</span> KTM Tech · Kathmandu</p>
+  </footer>
+
+  <script>
+    (function () {
+      var root = document.documentElement, btn = document.getElementById('theme');
+      try { var t = localStorage.getItem('theme'); if (t) root.dataset.theme = t; } catch (e) {}
+      btn.addEventListener('click', function () {
+        var dark = root.dataset.theme ? root.dataset.theme === 'dark'
+          : matchMedia('(prefers-color-scheme: dark)').matches;
+        root.dataset.theme = dark ? 'light' : 'dark';
+        try { localStorage.setItem('theme', root.dataset.theme); } catch (e) {}
+      });
+      document.getElementById('year').textContent = new Date().getFullYear();
+    })();
+  </script>
+</body>
+</html>
