@@ -156,3 +156,8 @@ a.contact-card:hover { border-color: var(--accent); }
   .stats { gap: 24px; }
   .term pre { font-size: 11.5px; padding: 16px; }
 }
+.links { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
+.title-link { text-decoration: none; }
+.title-link:hover { color: var(--accent); }
+.project-media .shot img, .project-media .mock { cursor: pointer; }
+.project-media > a { display: block; }

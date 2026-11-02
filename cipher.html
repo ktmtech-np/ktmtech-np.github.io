@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cipher — Encrypted Chat</title>
+  <meta name="description" content="Cipher: an end-to-end encrypted chat platform with files, voice, video and group calls, built on Go, Erlang/OTP and Kubernetes.">
+  <meta property="og:title" content="Cipher — end-to-end encrypted chat">
+  <meta property="og:image" content="assets/img/cipher/conversation.webp">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%23c2410c'/><text x='16' y='22' font-family='monospace' font-size='16' font-weight='700' fill='white' text-anchor='middle'>kt</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="project.css">
+</head>
+<body>
+  <header class="nav">
+    <div class="wrap nav-inner">
+      <a class="brand" href="./"><span class="logo">kt</span> ktmtech-np</a>
+      <nav>
+        <a href="./#about">About</a>
+        <a href="./#projects">Projects</a>
+        <a href="./#contact">Contact</a>
+        <button id="theme" class="theme-btn" aria-label="Toggle dark mode">◐</button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="wrap crumbs"><a href="./#projects">← Projects</a> / Cipher</div>
+
+    <section class="wrap p-hero">
+      <p class="eyebrow">Messaging · Cryptography</p>
+      <h1>Cipher</h1>
+      <p class="lede">
+        A WhatsApp-style messenger where the server never sees a message, a file or a call in the
+        clear. Text, files up to 100&nbsp;MB, voice and video calls, and group video conferences, all
+        end-to-end encrypted. Built from scratch on Go, Erlang/OTP and Kubernetes, in 16 phases:
+        text → files and images → audio → video.
+      </p>
+      <ul class="tags"><li>Go</li><li>Erlang/OTP</li><li>WebAssembly</li><li>WebCrypto</li><li>WebRTC</li><li>LiveKit</li><li>PostgreSQL</li><li>Kubernetes</li></ul>
+      <figure class="p-cover"><img src="assets/img/cipher/conversation.webp" alt="Cipher web client: chat list on the left, a conversation showing a two-photo message, a reply quote, voice notes, a PDF attachment and blue read ticks"></figure>
+    </section>
+
+    <section class="wrap">
+      <div class="facts">
+        <div class="fact"><strong>2,036</strong><span>automated checks, run against a three-node cluster with strict network policy</span></div>
+        <div class="fact"><strong>0 lost</strong><span>messages or dropped calls when a realtime node is killed</span></div>
+        <div class="fact"><strong>1,000 msg/s</strong><span>1:1 at p99 20&nbsp;ms across three nodes</span></div>
+        <div class="fact"><strong>100&nbsp;MB</strong><span>encrypted files, chunked AES-256-GCM in the browser</span></div>
+        <div class="fact"><strong>16 people</strong><span>per end-to-end encrypted group video call</span></div>
+      </div>
+    </section>
+
+    <section class="wrap p-section">
+      <h2>The app</h2>
+      <p class="intro">
+        The web client is plain JavaScript with no build step, layered strictly as
+        transport → crypto → store → render, so the code that draws the screen never touches a
+        socket or a key. Screenshots come from the client's built-in demo mode, so names and
+        messages are fictional.
+      </p>
+      <div class="gallery">
+        <figure><div class="frame"><img src="assets/img/cipher/group-chat-dark.webp" alt="Cipher in dark theme showing a group with a spreadsheet attachment, a poll, an unread divider and a video message" loading="lazy"></div><figcaption>Group chat in dark theme: shared file, poll and video</figcaption></figure>
+        <figure><div class="frame"><img src="assets/img/cipher/group-info-media.webp" alt="Group chat with the info panel open, showing call and search buttons, the group description and a grid of shared photos" loading="lazy"></div><figcaption>Group info panel with members, actions and shared media</figcaption></figure>
+        <figure><div class="frame"><img src="assets/img/cipher/video-call.webp" alt="Full-screen group video call with five participant tiles, a self-view, an encryption shield and call controls" loading="lazy"></div><figcaption>Group video call: participant tiles, self-view and controls</figcaption></figure>
+        <figure><div class="frame"><img src="assets/img/cipher/settings.webp" alt="Settings dialog with theme and wallpaper pickers and toggles for read receipts, typing indicators and always relaying calls" loading="lazy"></div><figcaption>Settings: theme, wallpaper, receipts, typing and always-relay calls</figcaption></figure>
+      </div>
+      <div class="feature" style="margin-top:44px;margin-bottom:0">
+        <div class="feature-text">
+          <p class="kicker">Responsive</p>
+          <h3>Works at phone width too</h3>
+          <p>The same client adapts to small screens with a bottom navigation bar. Native Android and iOS apps are next, and they'll reuse the same Go crypto core through gomobile.</p>
+        </div>
+        <div class="gallery one natural" style="max-width:300px">
+          <figure><div class="frame"><img src="assets/img/cipher/mobile-conversation.webp" alt="Cipher at phone width: a conversation with the end-to-end encryption notice, message bubbles and a bottom navigation bar" loading="lazy"></div><figcaption>Phone layout with the encryption notice</figcaption></figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="wrap p-section">
+      <h2>Architecture</h2>
+      <p class="intro">
+        Writes go to Erlang and reads go to Go. There is deliberately no HTTP endpoint for sending
+        messages, so only one writer allocates each conversation's message order.
+      </p>
+      <div class="arch">
+        <svg viewBox="0 0 950 440" role="img" aria-label="Cipher architecture: the web client talks to the Erlang realtime cluster over WebSocket, to the Go platform over HTTPS, and to LiveKit and coturn for calls. Erlang and Go store data in PostgreSQL; Go uses MinIO, RabbitMQ and Redis.">
+          <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z"/></marker></defs>
+          <g class="n hl"><rect x="20" y="150" width="210" height="120" rx="12"/><text x="40" y="190">Web client</text><text class="s" x="40" y="214">Go crypto core</text><text class="s" x="40" y="234">→ WebAssembly</text><text class="s" x="40" y="254">keys: WebCrypto</text></g>
+          <g class="n hl"><rect x="340" y="40" width="240" height="72" rx="12"/><text x="358" y="70">Erlang/OTP realtime</text><text class="s" x="358" y="94">3 nodes · every write</text></g>
+          <g class="n"><rect x="340" y="170" width="240" height="72" rx="12"/><text x="358" y="200">Go platform</text><text class="s" x="358" y="224">auth · reads · files · push</text></g>
+          <g class="n"><rect x="340" y="300" width="240" height="72" rx="12"/><text x="358" y="330">LiveKit SFU · coturn</text><text class="s" x="358" y="354">forwards ciphertext only</text></g>
+          <g class="n"><rect x="690" y="30" width="240" height="62" rx="12"/><text x="708" y="56">PostgreSQL</text><text class="s" x="708" y="78">ciphertext + public keys</text></g>
+          <g class="n"><rect x="690" y="115" width="240" height="62" rx="12"/><text x="708" y="141">MinIO</text><text class="s" x="708" y="163">encrypted file chunks</text></g>
+          <g class="n"><rect x="690" y="200" width="240" height="62" rx="12"/><text x="708" y="226">RabbitMQ → notifier</text><text class="s" x="708" y="248">Web Push, no plaintext</text></g>
+          <g class="n"><rect x="690" y="285" width="240" height="62" rx="12"/><text x="708" y="311">Redis</text><text class="s" x="708" y="333">rate limits · denylist</text></g>
+          <path class="e" d="M230,175 C285,175 285,76 338,76"/><text class="lbl" x="244" y="118">WSS</text>
+          <path class="e" d="M230,206 L338,206"/><text class="lbl" x="250" y="198">HTTPS</text>
+          <path class="e" d="M230,240 C285,240 285,336 338,336"/><text class="lbl" x="244" y="300">SRTP</text>
+          <path class="e" d="M580,70 L688,62"/><text class="lbl" x="596" y="56">sync write</text>
+          <path class="e" d="M580,190 C635,190 635,80 688,80"/>
+          <path class="e dash" d="M580,200 C635,200 635,150 688,150"/>
+          <path class="e" d="M580,215 L688,228"/>
+          <path class="e" d="M580,228 C635,228 635,316 688,316"/>
+          <path class="e dash" d="M460,112 L460,168"/><text class="lbl" x="468" y="145">push request</text>
+          <g class="n"><rect x="20" y="395" width="910" height="34" rx="10"/><text class="s" x="40" y="417">Kubernetes · default-deny NetworkPolicy · TLS 1.3 edge · mTLS Erlang distribution · Prometheus/Loki/Grafana</text></g>
+        </svg>
+      </div>
+
+      <h3 style="margin-top:44px">How a message travels</h3>
+      <ol class="flow">
+        <li><strong>Encrypt per device</strong>The sender's browser encrypts once for each of the recipient's devices, or once with a sender key for a group.</li>
+        <li><strong>Send over WebSocket</strong>The envelope goes over TLS 1.3 to the Erlang cluster.</li>
+        <li><strong>Store, then tick</strong>Erlang assigns the next gap-free sequence number and writes to Postgres before acknowledging. A tick means the message is stored.</li>
+        <li><strong>Route</strong>The envelope reaches every connected device, whichever node it's on.</li>
+        <li><strong>Decrypt and read</strong>The recipient decrypts it and sends a read receipt back, the blue tick.</li>
+        <li><strong>Offline? Push</strong>The push carries only a conversation id. On reconnect the client replays what it missed by sequence number.</li>
+      </ol>
+    </section>
+
+    <section class="wrap p-section">
+      <h2>Security model</h2>
+      <p class="intro">The server is treated as an untrusted bulletin board. It stores ciphertext and public keys, and the database has no column that could hold anything that decrypts.</p>
+      <div class="cols">
+        <div class="card"><h4>Messages</h4><ul>
+          <li>X3DH and the Double Ratchet for 1:1 chats. Every key is used once, for forward secrecy</li>
+          <li>Sender keys for groups, signed per sender. Removing a member forces everyone to re-key</li>
+          <li>No silent fallback: the client refuses to send if encryption fails</li>
+        </ul></div>
+        <div class="card"><h4>Keys and devices</h4><ul>
+          <li>Private keys are non-extractable WebCrypto keys. The WASM engine uses them by reference, so even injected script can't copy them</li>
+          <li>60-digit safety numbers to verify a contact</li>
+          <li>An existing device must approve a new one with a 6-digit code</li>
+        </ul></div>
+        <div class="card"><h4>Calls</h4><ul>
+          <li>1:1 calls go peer to peer over DTLS-SRTP, with end-to-end encrypted signaling</li>
+          <li>In group calls every frame is encrypted in the browser. Keys rotate on each join and leave, so the server forwards frames it can't decode</li>
+          <li>Recording happens only in the recorder's browser, and everyone in the call is told first</li>
+        </ul></div>
+        <div class="card"><h4>Platform</h4><ul>
+          <li>Default-deny NetworkPolicy: each internal port admits exactly one caller</li>
+          <li>A strict CSP with no inline script and no eval, enforced in every browser test</li>
+          <li>Signing out wipes the local cache and key store</li>
+        </ul></div>
+      </div>
+      <p class="prose" style="margin-top:20px"><span style="color:var(--text);font-weight:600">Caveat:</span> the protocol layer is hand-written on standard platform primitives and hasn't been externally audited yet. A cryptographic review and penetration test are the main open item before any outside users.</p>
+    </section>
+
+    <section class="wrap p-section">
+      <h2>Features</h2>
+      <div class="cols">
+        <div class="card"><h4>Messaging</h4><ul><li>1:1 and groups of up to 256</li><li>Ticks, typing and presence (each can be switched off)</li><li>Replies, reactions, edit, delete for everyone</li><li>Polls tallied from encrypted votes</li><li>Search, drafts, pins, forward, export</li></ul></div>
+        <div class="card"><h4>Files and media</h4><ul><li>Encrypted photos and documents up to 100&nbsp;MB</li><li>Resumable uploads with progress</li><li>Thumbnails made in the browser, with photo metadata stripped</li><li>Inline images limited to safe formats (never SVG)</li></ul></div>
+        <div class="card"><h4>Calls</h4><ul><li>1:1 voice and video, with push ringing</li><li>Group conferences: screen share, grid and speaker views</li><li>Switches networks mid-call without dropping</li><li>Move a call to another device</li><li>Client-side encrypted recording</li></ul></div>
+        <div class="card"><h4>Multi-device and ops</h4><ul><li>Every message encrypted to all your devices</li><li>Encrypted history transfer to a new device</li><li>Three-node Erlang cluster with failover</li><li>Grafana dashboards and 13 alert rules</li><li>Load, chaos and failover test suites</li></ul></div>
+      </div>
+    </section>
+
+    <section class="wrap p-section">
+      <h2>Engineering decisions</h2>
+      <div class="decisions">
+        <div class="decision"><h4>No libsignal for browsers, so we wrote our own</h4><p>Signal publishes no browser build, and the third-party ports are GPL and unmaintained. X3DH and the Double Ratchet were written on WebCrypto primitives, then moved into a single Go core compiled to WebAssembly and gomobile, so every client shares one key schedule.</p></div>
+        <div class="decision"><h4>Kafka deferred: Erlang writes Postgres directly</h4><p>A tick has to mean "stored", and the message order has to come from the database anyway. So Erlang writes Postgres before acknowledging, instead of going through a Kafka projector. RabbitMQ stays as the push queue, because a log and a work queue solve different problems.</p></div>
+        <div class="decision"><h4>Sender keys with signatures and epochs</h4><p>Pairwise encryption would add about 8&nbsp;KB of wrapped keys to every message in a 50-member group. Sender keys fix that. Per-sender signing keys and a membership epoch keep authorship and member removal meaningful.</p></div>
+        <div class="decision"><h4>LiveKit forwards; Erlang and the browsers keep control</h4><p>After a spike in which all 10 people in a room heard each other with frame encryption working, LiveKit was chosen purely as a forwarder. Erlang admits participants and signs their tokens, and the frame keys belong to the browsers.</p></div>
+        <div class="decision"><h4>A realtime tier that survives losing a node</h4><p>Going to three Erlang nodes meant no node-local state, detecting a dead node in about 8 seconds, a client heartbeat, resuming calls, and repairing gaps by sequence number. The load test also found bugs that functional tests couldn't.</p></div>
+      </div>
+    </section>
+
+    <section class="wrap p-section">
+      <h2>Status</h2>
+      <div class="status">
+        <div class="card"><h4><span class="dot"></span> Done (Oct 2026)</h4><p>All 16 phases: text, files and images, previews, 1:1 voice and video, encrypted group calls and conferences, the three-node cluster, observability and CSP. All 2,036 checks pass, and a production-test deployment is running.</p></div>
+        <div class="card"><h4><span class="dot open"></span> Next</h4><p>An external cryptographic review and pen test. Then public TURN and SFU, Postgres high availability and backups, and native mobile apps on the shared Go crypto core.</p></div>
+      </div>
+    </section>
+
+    <div class="wrap next-project">
+      <a href="naksa.html"><small>← Previous</small><strong>Naksa</strong></a>
+      <a class="r" href="ktmail.html"><small>Next →</small><strong>ktmail</strong></a>
+    </div>
+  </main>
+
+  <footer class="wrap footer">
+    <p>© <span id="year">2026</span> KTM Tech · Kathmandu · Source code is private, <a href="private.html?repo=chat-app">request access</a></p>
+  </footer>
+  <script src="site.js"></script>
+</body>
+</html>

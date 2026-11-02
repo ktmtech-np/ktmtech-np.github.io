@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ktmail — Rust Mail Server</title>
+  <meta name="description" content="ktmail: a complete mail server in one Rust binary, a drop-in replacement for Postfix and Dovecot, with a Gmail-style webmail.">
+  <meta property="og:title" content="ktmail — a mail server in one Rust binary">
+  <meta property="og:image" content="assets/img/ktmail/inbox.webp">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%23c2410c'/><text x='16' y='22' font-family='monospace' font-size='16' font-weight='700' fill='white' text-anchor='middle'>kt</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="project.css">
+  <style>
+    .term-block .c { color: #fb923c; } .term-block .d { color: #a8a29e; } .term-block .ok { color: #4ade80; }
+  </style>
+</head>
+<body>
+  <header class="nav">
+    <div class="wrap nav-inner">
+      <a class="brand" href="./"><span class="logo">kt</span> ktmtech-np</a>
+      <nav>
+        <a href="./#about">About</a>
+        <a href="./#projects">Projects</a>
+        <a href="./#contact">Contact</a>
+        <button id="theme" class="theme-btn" aria-label="Toggle dark mode">◐</button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="wrap crumbs"><a href="./#projects">← Projects</a> / ktmail</div>
+
+    <section class="wrap p-hero">
+      <p class="eyebrow">Email · Systems · Rust</p>
+      <h1>ktmail</h1>
+      <p class="lede">
+        A complete mail server in one Rust binary, built as a drop-in replacement for Postfix and
+        Dovecot. It receives, stores, filters and sends mail from one process and one TOML file, and it
+        takes over an existing server without users noticing. A Gmail-style webmail,
+        <code>ktmail-web</code>, comes with it.
+      </p>
+      <ul class="tags"><li>Rust</li><li>tokio</li><li>rustls</li><li>SQLite FTS5</li><li>SMTP</li><li>IMAP4rev2</li><li>Sieve</li><li>Landlock</li></ul>
+      <figure class="p-cover"><img src="assets/img/ktmail/inbox.webp" alt="ktmail webmail inbox with a folder sidebar and a list of conversations, including Danish and Japanese messages"></figure>
+    </section>
+
+    <section class="wrap">
+      <div class="facts">
+        <div class="fact"><strong>1 binary</strong><span>replaces Postfix, Dovecot, OpenDKIM, OpenDMARC, postgrey and policyd</span></div>
+        <div class="fact"><strong>647 tests</strong><span>passing, with clippy pedantic, MSRV and cargo-deny all clean</span></div>
+        <div class="fact"><strong>0 unsafe</strong><span><code>unsafe_code = "forbid"</code> in every crate</span></div>
+        <div class="fact"><strong>101 RFCs</strong><span>fully implemented, out of 112 standards tracked</span></div>
+        <div class="fact"><strong>894 msg/s</strong><span>SMTP intake on one laptop, with no mail lost across 10 <code>kill -9</code> crashes</span></div>
+      </div>
+    </section>
+
+    <!-- Webmail -->
+    <section class="wrap p-section">
+      <h2>The webmail</h2>
+      <p class="intro">
+        <code>ktmail-web</code> is a separate binary that talks IMAP and submission to the server like any other
+        client. It has a Rust (axum) backend and a plain HTML/CSS/JS front end, with no Node and no framework.
+        These are real captures of the debug build running against a local ktmail, using demo mail at
+        <code>example.com</code> addresses.
+      </p>
+      <div class="gallery">
+        <figure class="wide"><div class="frame"><img src="assets/img/ktmail/conversation.webp" alt="ktmail webmail showing a three-message conversation stacked on the right, with Reply, Reply all and Forward buttons" loading="lazy"></div><figcaption>A three-message conversation stacked in the reading pane</figcaption></figure>
+        <figure><div class="frame"><img src="assets/img/ktmail/compose.webp" alt="A floating compose window replying to a message, with the recipient chip, quoted original, formatting toolbar and Send button" loading="lazy"></div><figcaption>Replying in a floating compose window</figcaption></figure>
+        <figure><div class="frame"><img src="assets/img/ktmail/dark-html.webp" alt="ktmail webmail in dark mode displaying an HTML newsletter inside a sandboxed frame" loading="lazy"></div><figcaption>Dark theme, with an HTML newsletter in a sandboxed frame</figcaption></figure>
+        <figure><div class="frame"><img src="assets/img/ktmail/settings.webp" alt="Webmail settings dialog with display name, signature, reading pane, density, theme and notification options" loading="lazy"></div><figcaption>Settings: reading pane, density, theme, notifications</figcaption></figure>
+        <figure><div class="frame"><img src="assets/img/ktmail/shortcuts.webp" alt="Dark dialog listing keyboard shortcuts such as c for compose, / for search, j and k to move, e to archive" loading="lazy"></div><figcaption>Gmail-style keyboard shortcuts, opened with the ? key</figcaption></figure>
+      </div>
+      <div class="feature" style="margin-top:44px;margin-bottom:0">
+        <div class="feature-text">
+          <p class="kicker">Safe by default</p>
+          <h3>Built for hostile mail</h3>
+          <p>Login credentials live only in process memory. HTML mail is sanitised and shown in a sandboxed frame under a strict Content-Security-Policy, and remote images stay blocked until you allow them. The layout works at phone width, with a floating compose button.</p>
+        </div>
+        <div class="gallery one natural" style="max-width:320px">
+          <figure><div class="frame"><img src="assets/img/ktmail/mobile.webp" alt="The webmail inbox at phone width with search, message list with stars, and a round floating compose button" loading="lazy"></div><figcaption>Phone layout</figcaption></figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- Architecture -->
+    <section class="wrap p-section">
+      <h2>Architecture</h2>
+      <p class="intro">
+        One async process on tokio. Every protocol is a listener with its own handler, and the handlers share
+        long-lived services: queue, directory, DNS, store, policy, mail authentication and a session registry.
+        The parsers are written without I/O, so they can be fuzzed and tested on their own.
+      </p>
+      <div class="arch">
+        <svg viewBox="0 0 960 400" role="img" aria-label="ktmail architecture: SMTP and LMTP listeners pass mail through policy and mail-authentication checks into the queue, then delivery with Sieve into the store. IMAP, POP3 and ManageSieve read from the store. Remote delivery goes out with DANE and MTA-STS. An admin API and the webmail sit alongside.">
+          <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z"/></marker></defs>
+          <g class="n"><rect x="10" y="40" width="160" height="66" rx="12"/><text x="26" y="68">SMTP · LMTP</text><text class="s" x="26" y="90">25 · 587 · 465</text></g>
+          <g class="n"><rect x="230" y="40" width="200" height="66" rx="12"/><text x="248" y="68">Policy · mail-auth</text><text class="s" x="248" y="90">SPF DKIM DMARC ARC</text></g>
+          <g class="n hl"><rect x="490" y="40" width="190" height="66" rx="12"/><text x="508" y="68">ktmail-queue</text><text class="s" x="508" y="90">fsync before 250</text></g>
+          <g class="n"><rect x="740" y="40" width="210" height="66" rx="12"/><text x="758" y="68">Remote delivery</text><text class="s" x="758" y="90">MX · DANE · MTA-STS</text></g>
+          <g class="n"><rect x="490" y="160" width="190" height="66" rx="12"/><text x="508" y="188">Local delivery</text><text class="s" x="508" y="210">Sieve at delivery</text></g>
+          <g class="n hl"><rect x="490" y="280" width="190" height="80" rx="12"/><text x="508" y="308">ktmail-store</text><text class="s" x="508" y="330">Maildir++ · SQLite</text><text class="s" x="508" y="348">index · FTS5</text></g>
+          <g class="n"><rect x="230" y="280" width="200" height="80" rx="12"/><text x="248" y="308">IMAP · POP3</text><text class="s" x="248" y="330">ManageSieve</text><text class="s" x="248" y="348">143 993 110 995 4190</text></g>
+          <g class="n"><rect x="10" y="280" width="160" height="80" rx="12"/><text x="26" y="308">Clients</text><text class="s" x="26" y="330">Thunderbird</text><text class="s" x="26" y="348">ktmail-web</text></g>
+          <g class="n"><rect x="740" y="190" width="210" height="80" rx="12"/><text x="758" y="218">Admin</text><text class="s" x="758" y="240">JSON API · ktmailctl</text><text class="s" x="758" y="258">/metrics · ACME</text></g>
+          <path class="e" d="M170,73 L228,73"/>
+          <path class="e" d="M430,73 L488,73"/>
+          <path class="e" d="M680,73 L738,73"/><text class="lbl" x="686" y="64">remote</text>
+          <path class="e" d="M585,106 L585,158"/><text class="lbl" x="594" y="138">local</text>
+          <path class="e" d="M585,226 L585,278"/>
+          <path class="e" d="M488,320 L432,320"/><text class="lbl" x="440" y="310">IDLE</text>
+          <path class="e" d="M228,320 L172,320"/>
+          <path class="e dash" d="M90,280 C90,200 90,150 90,108"/><text class="lbl" x="98" y="200">submission</text>
+        </svg>
+      </div>
+
+      <h3 style="margin-top:44px">Inbound: from SMTP to your inbox</h3>
+      <ol class="flow five" style="margin-top:16px">
+        <li><strong>Check</strong>Block lists, rDNS, rate limits and greylisting, then SPF, DKIM, DMARC and ARC. A pipeline decides whether to reject, tag or score each hit.</li>
+        <li><strong>Spool</strong>The message and envelope are fsynced before the <code>250</code> reply, with fsyncs shared across transactions.</li>
+        <li><strong>Sieve</strong>The user's script runs at delivery: fileinto, vacation, redirect, reject, editheader and more.</li>
+        <li><strong>Store</strong>Messages are written to Maildir, the SQLite index is updated, and IDLE sessions see new mail at once.</li>
+        <li><strong>Read</strong>IMAP sessions on the same folder share one in-memory snapshot of the message list.</li>
+      </ol>
+      <h3>Outbound: from submission to the world</h3>
+      <ol class="flow four" style="margin-top:16px">
+        <li><strong>Submit</strong>Ports 587 and 465 with SASL. BURL sends a message straight from IMAP Drafts.</li>
+        <li><strong>Sign</strong>DKIM signing with RSA and Ed25519. Forwarded mail gets SRS and an ARC seal.</li>
+        <li><strong>Queue</strong>Retries with backoff, per-destination rate limits, delay warnings and bounces.</li>
+        <li><strong>Deliver</strong>MX lookup, with DANE and MTA-STS deciding how strict TLS must be. Results feed TLS-RPT reports.</li>
+      </ol>
+    </section>
+
+    <!-- Protocols -->
+    <section class="wrap p-section">
+      <h2>Protocols and standards</h2>
+      <p class="intro">IMAP ENVELOPE and BODYSTRUCTURE responses match Dovecot byte for byte. Interop was checked against swaks, Dovecot imaptest, Pigeonhole, pyspf (203 of 203), dkimpy, rspamd, Pebble and OpenLDAP.</p>
+      <div class="cols three">
+        <div class="card"><h4>Receiving</h4><ul><li>SMTP: PIPELINING, CHUNKING, SMTPUTF8, DSN, REQUIRETLS</li><li>LMTP over TCP or a Unix socket</li><li>HAProxy PROXY v1/v2</li></ul></div>
+        <div class="card"><h4>Sending</h4><ul><li>Submission on 587 and 465, BURL</li><li>DANE, MTA-STS, TLS-RPT</li><li>Per-language DSN bounces</li></ul></div>
+        <div class="card"><h4>Logging in</h4><ul><li>PLAIN, LOGIN, SCRAM-SHA-256-PLUS</li><li>TLS client certificates, OAUTHBEARER and XOAUTH2</li><li>Every Dovecot password hash scheme</li></ul></div>
+        <div class="card"><h4>Reading</h4><ul><li>IMAP4rev1 and rev2: IDLE, MOVE, CONDSTORE/QRESYNC, NOTIFY, METADATA</li><li>POP3 that keeps Dovecot's UIDLs</li><li>Full-text search, including inside attachments</li></ul></div>
+        <div class="card"><h4>Filtering</h4><ul><li>Sieve with 30+ extensions</li><li>ManageSieve on port 4190</li><li>milter v6, rspamd, Postfix policy</li></ul></div>
+        <div class="card"><h4>Operations</h4><ul><li>ACME / Let's Encrypt, hot reload</li><li>Prometheus, Grafana, OpenTelemetry</li><li>.deb, .rpm, container, Helm, musl builds</li></ul></div>
+      </div>
+    </section>
+
+    <!-- Migration -->
+    <section class="wrap p-section">
+      <h2>Migrating from Postfix and Dovecot</h2>
+      <p class="intro">The goal is that mail clients notice nothing. UIDVALIDITY and UIDs stay the same, so clients keep their caches. Flags, subscriptions, Sieve scripts and POP3 UIDLs come along, and nothing touches the old data, so you can roll back.</p>
+      <ol class="flow five">
+        <li><strong>Import config</strong><code>migrate postfix</code> and <code>migrate dovecot</code> write one <code>ktmail.toml</code>, plus a report on every setting.</li>
+        <li><strong>Side by side</strong>Postfix keeps the public ports and delivers to ktmail over LMTP, one domain at a time.</li>
+        <li><strong>Move mail</strong><code>migrate maildir</code> takes over in place, or <code>migrate imap</code> copies incrementally.</li>
+        <li><strong>Verify</strong><code>migrate verify</code> compares counts, sizes, UIDs and flags.</li>
+        <li><strong>Cut over</strong>Drain the queue, stop the old daemons, and give ktmail the ports.</li>
+      </ol>
+<pre class="term-block"><span class="c">$</span> ktmailctl migrate --help
+Import Postfix/Dovecot configuration and mail
+
+Commands:
+  postfix  Convert a Postfix configuration (main.cf, master.cf, maps)
+  dovecot  Convert a Dovecot configuration (dovecot.conf, conf.d, .conf.ext)
+  maildir  Check an existing Dovecot Maildir for ktmail, or copy it into the account's ktmail location
+  imap     Copy an account's mail from another IMAP server into the local store
+  verify   Compare an account with its source (counts, sizes, UIDs)
+
+<span class="c">$</span> ktmailctl status
+ktmail 0.1.0 on mail.localhost, up 2m 21s, <span class="ok">ready</span>
+sessions: 2
+queue: active 0, corrupt 0, deferred 0, hold 0, incoming 0
+
+<span class="c">$</span> ktmailctl index status alice@example.com
+alice@example.com: 11 messages, 12383B (no quota)
+  INBOX       9 msgs   4 unseen   uidvalidity 1793634279  uidnext 10
+  Projects    1 msgs   0 unseen   uidvalidity 1793634286  uidnext 2
+  Receipts    1 msgs   1 unseen   uidvalidity 1793634285  uidnext 2   <span class="d"># filed by Sieve</span></pre>
+    </section>
+
+    <!-- Sieve -->
+    <section class="wrap p-section">
+      <h2>Filtering with Sieve</h2>
+      <div class="feature" style="margin-bottom:0">
+        <div class="feature-text">
+          <p>Sieve runs at delivery, so filters work no matter which client you use. Existing Pigeonhole scripts work as they are, and Thunderbird or Roundcube can upload new ones over ManageSieve. This rule filed the CI notification into Projects:</p>
+<pre class="term-block">require ["fileinto", "mailbox", "imap4flags"];
+<span class="d"># CI notifications go to Projects</span>
+if header :contains "subject" "[ktmail]" {
+    fileinto :create "Projects";
+    stop;
+}
+<span class="d"># Receipts and invoices</span>
+if address :domain :is "from" "billing.example" {
+    addflag "\\Flagged";
+    fileinto :create "Receipts";
+    stop;
+}</pre>
+        </div>
+        <div class="gallery one">
+          <figure><div class="frame"><img src="assets/img/ktmail/projects.webp" alt="The Projects folder containing a CI notification that a Sieve rule filed there on delivery" loading="lazy"></div><figcaption>Mail filed into Projects by a server-side Sieve rule</figcaption></figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- Security -->
+    <section class="wrap p-section">
+      <h2>Security and hardening</h2>
+      <div class="cols">
+        <div class="card"><h4>Memory safety and fuzzing</h4><ul><li>All Rust, with <code>unsafe</code> forbidden in every crate</li><li>25 cargo-fuzz targets covering every parser the network or mail content can reach</li><li>Limits on lines, sizes, connections, MIME depth and Sieve run time</li></ul></div>
+        <div class="card"><h4>Sandboxed process</h4><ul><li>Landlock: writes only to the queue, mail and database directories</li><li>systemd: one capability, a system-call allow-list, <code>ProtectSystem=strict</code></li><li>Without systemd, it drops root privileges and checks they can't be regained</li></ul></div>
+        <div class="card"><h4>Logins</h4><ul><li>Constant-time checks, and Argon2id with a bounded memory pool</li><li>Per-IP delays and lockout, plus fail2ban-style blocks built in</li><li>SCRAM-PLUS ties the login to the TLS connection</li></ul></div>
+        <div class="card"><h4>Content and supply chain</h4><ul><li>rustls only, no OpenSSL</li><li>Its own zip and XML readers: no XXE, and a zip bomb costs at most 32&nbsp;MiB</li><li><code>cargo deny</code> on every CI run</li></ul></div>
+      </div>
+    </section>
+
+    <!-- Decisions -->
+    <section class="wrap p-section">
+      <h2>Engineering decisions</h2>
+      <div class="decisions">
+        <div class="decision"><h4>One process instead of privilege separation</h4><p>Postfix and Dovecot isolate components in separate processes. ktmail relies instead on memory safety, strict limits and fuzzing, and confines its single process with Landlock and systemd filters. A panic in one session is contained to that task.</p></div>
+        <div class="decision"><h4>Its own MIME parser and its own SPF/DKIM/DMARC/ARC</h4><p>The existing crates were dropped. An in-house parser that gives byte ranges for every part made it possible to golden-test IMAP output against Dovecot byte for byte. Mail authentication runs on <code>ring</code> with a mockable DNS resolver.</p></div>
+        <div class="decision"><h4>Durable and fast: group commit</h4><p>Fsyncing before every <code>250</code> reply capped intake at 41&nbsp;msg/s per connection. Sharing directory fsyncs across transactions cut each message's wait from four fsync rounds to two: 12,800 fsync requests were served by 2,432 real fsyncs. A <code>kill -9</code> torture test lost no accepted mail.</p></div>
+        <div class="decision"><h4>Profiling found the real bottlenecks</h4><p>Starting one search-indexing task per delivery blocked on the account lock. Using one indexer per account raised intake from 113 to 737&nbsp;msg/s, 6.5× faster.</p></div>
+        <div class="decision"><h4>One shared mailbox snapshot</h4><p>IMAP sessions on the same folder now share one immutable message list and keep only their own changes. With 200,000 messages and 10 sessions, that's one 30.6&nbsp;MiB snapshot instead of about 306&nbsp;MiB of copies.</p></div>
+      </div>
+    </section>
+
+    <section class="wrap p-section">
+      <h2>Status</h2>
+      <div class="status">
+        <div class="card"><h4><span class="dot"></span> Feature-complete (v0.1.0)</h4><p>Every phase of the plan and every buildable open item is done, and all 647 tests pass. It's dual-licensed Apache-2.0 or MIT and needs Rust 1.88+ on Linux. It has not run in production yet.</p></div>
+        <div class="card"><h4><span class="dot open"></span> Needs a real environment</h4><p>Tests with real mail clients, delivery to Gmail and Outlook, load tests and a 72-hour soak, long fuzzing runs, a migration rehearsal from a live Postfix and Dovecot server, and an external security review.</p></div>
+      </div>
+    </section>
+
+    <div class="wrap next-project">
+      <a href="cipher.html"><small>← Previous</small><strong>Cipher</strong></a>
+      <a class="r" href="naksa.html"><small>Next →</small><strong>Naksa</strong></a>
+    </div>
+  </main>
+
+  <footer class="wrap footer">
+    <p>© <span id="year">2026</span> KTM Tech · Kathmandu · Source code is private, <a href="private.html?repo=ktmail">request access</a></p>
+  </footer>
+  <script src="site.js"></script>
+</body>
+</html>

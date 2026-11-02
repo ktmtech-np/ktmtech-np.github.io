@@ -120,7 +120,7 @@
       <!-- Naksa -->
       <article class="project">
         <div class="project-media">
-          <figure class="shot main"><img src="assets/img/naksa-map-light.webp" alt="Naksa public map of Kathmandu with roads, land use and POI icons" loading="lazy"></figure>
+          <a href="naksa.html" aria-label="Open the naksa case study"><figure class="shot main"><img src="assets/img/naksa-map-light.webp" alt="Naksa public map of Kathmandu with roads, land use and POI icons" loading="lazy"></figure></a>
           <div class="shot-row">
             <figure class="shot"><img src="assets/img/naksa-map-dark-3d-nepali.webp" alt="Dark theme with 3D buildings and Nepali labels" loading="lazy"></figure>
             <figure class="shot"><img src="assets/img/naksa-directions.webp" alt="Driving and walking directions" loading="lazy"></figure>
@@ -129,7 +129,7 @@
         </div>
         <div class="project-body">
           <p class="kicker">Maps · GIS</p>
-          <h3>Naksa <span class="np">नक्सा</span></h3>
+          <h3><a class="title-link" href="naksa.html">Naksa <span class="np">नक्सा</span></a></h3>
           <p>
             A self-hosted map of Nepal: OpenStreetMap data in PostGIS, our own vector tiles,
             a MapLibre GL app, and OSRM routing for driving and walking. A map editor adds the
@@ -143,29 +143,23 @@
             <li>Parcel splits to exact areas in ropani-aana-paisa-daam, bigha or m²</li>
           </ul>
           <ul class="tags"><li>Go</li><li>PostGIS</li><li>MapLibre GL</li><li>OSRM</li><li>Vector tiles</li></ul>
-          <a class="link" href="private.html?repo=naksa">View repository 🔒</a>
+          <div class="links"><a class="btn primary" href="naksa.html">Read the case study →</a> <a class="link" href="private.html?repo=naksa">View repository 🔒</a></div>
         </div>
       </article>
 
       <!-- Cipher -->
       <article class="project reverse">
         <div class="project-media">
-          <div class="mock chat" aria-hidden="true">
-            <div class="mock-bar"><span></span><span></span><span></span><em>Cipher</em></div>
-            <div class="chat-body">
-              <div class="bubble in">Are we still on for the call?</div>
-              <div class="bubble out">Yes, starting now 📞</div>
-              <div class="bubble in file">🔒 site-plan.pdf · 4.2 MB</div>
-              <div class="call">
-                <div class="tile">A</div><div class="tile">S</div><div class="tile">R</div><div class="tile live">You</div>
-              </div>
-              <p class="e2ee">🔒 Every message, file and video frame is end-to-end encrypted</p>
-            </div>
+          <a href="cipher.html" aria-label="Open the cipher case study"><figure class="shot main"><img src="assets/img/cipher/conversation.webp" alt="Cipher web client with chat list and a conversation with photos, voice notes and read ticks" loading="lazy"></figure></a>
+          <div class="shot-row">
+            <figure class="shot"><img src="assets/img/cipher/group-chat-dark.webp" alt="Group chat in dark theme" loading="lazy"></figure>
+            <figure class="shot"><img src="assets/img/cipher/video-call.webp" alt="Group video call" loading="lazy"></figure>
+            <figure class="shot"><img src="assets/img/cipher/settings.webp" alt="Settings dialog" loading="lazy"></figure>
           </div>
         </div>
         <div class="project-body">
           <p class="kicker">Messaging · Cryptography</p>
-          <h3>Cipher</h3>
+          <h3><a class="title-link" href="cipher.html">Cipher</a></h3>
           <p>
             An end-to-end encrypted chat platform: text, files and images, 1:1 voice and video
             calls, and encrypted group calls and video conferences on LiveKit. The X3DH and Double
@@ -179,30 +173,23 @@
             <li>Prometheus, Loki and Grafana, a strict CSP, and 2,036 automated checks</li>
           </ul>
           <ul class="tags"><li>Go</li><li>Erlang/OTP</li><li>WebAssembly</li><li>WebRTC</li><li>LiveKit</li><li>Kubernetes</li></ul>
-          <a class="link" href="private.html?repo=chat-app">View repository 🔒</a>
+          <div class="links"><a class="btn primary" href="cipher.html">Read the case study →</a> <a class="link" href="private.html?repo=chat-app">View repository 🔒</a></div>
         </div>
       </article>
 
       <!-- ktmail -->
       <article class="project">
         <div class="project-media">
-          <div class="mock term" aria-hidden="true">
-            <div class="mock-bar"><span></span><span></span><span></span><em>ktmail</em></div>
-<pre><span class="c">$</span> ktmailctl migrate --from /etc/postfix --from /etc/dovecot
-<span class="ok">✓</span> main.cf, master.cf      → ktmail.toml
-<span class="ok">✓</span> dovecot.conf, 10-auth   → ktmail.toml
-<span class="ok">✓</span> Maildir UIDs preserved  (12,408 messages)
-<span class="ok">✓</span> Pigeonhole Sieve scripts (37)
-<span class="c">$</span> ktmail serve
-<span class="d">smtp</span>  :25  <span class="d">submission</span> :587 :465
-<span class="d">imap</span>  :143 :993  <span class="d">pop3</span> :110 :995
-<span class="d">sieve</span> :4190  <span class="d">webmail</span> :8443
-<span class="ok">ready</span> — one process, one config file</pre>
+          <a href="ktmail.html" aria-label="Open the ktmail case study"><figure class="shot main"><img src="assets/img/ktmail/inbox.webp" alt="ktmail webmail inbox with folder sidebar and conversation list" loading="lazy"></figure></a>
+          <div class="shot-row">
+            <figure class="shot"><img src="assets/img/ktmail/conversation.webp" alt="A conversation in the reading pane" loading="lazy"></figure>
+            <figure class="shot"><img src="assets/img/ktmail/compose.webp" alt="Compose window" loading="lazy"></figure>
+            <figure class="shot"><img src="assets/img/ktmail/dark-html.webp" alt="Dark theme with HTML mail" loading="lazy"></figure>
           </div>
         </div>
         <div class="project-body">
           <p class="kicker">Email · Systems</p>
-          <h3>ktmail</h3>
+          <h3><a class="title-link" href="ktmail.html">ktmail</a></h3>
           <p>
             A complete mail server in one Rust binary, built as a drop-in replacement for Postfix and
             Dovecot. It handles SMTP, submission, LMTP, IMAP4rev2, POP3, Sieve and ManageSieve, with
@@ -215,7 +202,7 @@
             <li>Full-text search, including the text inside Office attachments, plus 647 tests</li>
           </ul>
           <ul class="tags"><li>Rust</li><li>SMTP</li><li>IMAP</li><li>Sieve</li><li>TLS 1.3</li></ul>
-          <a class="link" href="private.html?repo=ktmail">View repository 🔒</a>
+          <div class="links"><a class="btn primary" href="ktmail.html">Read the case study →</a> <a class="link" href="private.html?repo=ktmail">View repository 🔒</a></div>
         </div>
       </article>
     </section>

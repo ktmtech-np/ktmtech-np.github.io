@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Naksa — Nepal Map</title>
+  <meta name="description" content="Naksa: a self-hosted map of Nepal built end to end from OpenStreetMap, with its own tiles, search, routing, a map editor and a land-records system.">
+  <meta property="og:title" content="Naksa (नक्सा) — a self-hosted Nepal map">
+  <meta property="og:image" content="assets/img/naksa/map-light.webp">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%23c2410c'/><text x='16' y='22' font-family='monospace' font-size='16' font-weight='700' fill='white' text-anchor='middle'>kt</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="project.css">
+</head>
+<body>
+  <header class="nav">
+    <div class="wrap nav-inner">
+      <a class="brand" href="./"><span class="logo">kt</span> ktmtech-np</a>
+      <nav>
+        <a href="./#about">About</a>
+        <a href="./#projects">Projects</a>
+        <a href="./#contact">Contact</a>
+        <button id="theme" class="theme-btn" aria-label="Toggle dark mode">◐</button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="wrap crumbs"><a href="./#projects">← Projects</a> / Naksa</div>
+
+    <section class="wrap p-hero">
+      <p class="eyebrow">Maps · GIS · Land records</p>
+      <h1>Naksa <span class="np">नक्सा</span></h1>
+      <p class="lede">
+        A self-hosted map of Nepal, built end to end from OpenStreetMap: our own vector tiles,
+        search, and driving and walking directions, plus a map editor for the local detail OSM lacks.
+        On top of it runs a working land-records system with the owners' portal, the land office
+        (Malpot), the palika desk and the survey office (Napi), all in नेपाली and English.
+      </p>
+      <ul class="tags"><li>Go</li><li>PostgreSQL + PostGIS</li><li>osm2pgsql</li><li>OSRM</li><li>MapLibre GL JS</li><li>Caddy</li><li>Playwright</li></ul>
+      <figure class="p-cover"><img src="assets/img/naksa/map-light.webp" alt="Light-themed street map of Kuleshwor, Kathmandu with search bar, category chips and POI icons"></figure>
+    </section>
+
+    <section class="wrap">
+      <div class="facts">
+        <div class="fact"><strong>All of Nepal</strong><span>617,534 roads, 8.3&nbsp;M buildings and 82,449 POIs from OpenStreetMap</span></div>
+        <div class="fact"><strong>70–210&nbsp;ms</strong><span>typo-tolerant national search, Devanagari included</span></div>
+        <div class="fact"><strong>6 apps</strong><span>for 6 audiences, served by 3 Go programs over 4 database schemas</span></div>
+        <div class="fact"><strong>185</strong><span>HTTP routes, all documented in the requirements spec</span></div>
+        <div class="fact"><strong>0.01&nbsp;m²</strong><span>precision when a parcel is split to exact areas</span></div>
+      </div>
+    </section>
+
+    <!-- Public map -->
+    <section class="wrap p-section">
+      <h2>Public map</h2>
+      <p class="intro">
+        Galli-style cartography drawn from our own tiles: land use, water, a road hierarchy, POI icons and
+        3D buildings, in light or dark, with labels in नेपाली or English. Nepal's border follows the official
+        2020 map. Place cards and "What's here?" give the full address: ward, municipality, district and province.
+      </p>
+      <div class="gallery">
+        <figure><div class="frame"><img src="assets/img/naksa/map-dark-3d-nepali.webp" alt="Dark map of Kathmandu with extruded 3D buildings and Devanagari place labels" loading="lazy"></div><figcaption>Dark theme, 3D buildings and Nepali labels</figcaption></figure>
+        <figure><div class="frame"><img src="assets/img/naksa/map-directions.webp" alt="Directions panel with a short walking route drawn in blue on the map" loading="lazy"></div><figcaption>Drive or walk directions over OSM roads and our own alleys</figcaption></figure>
+      </div>
+      <p class="prose" style="margin-top:22px">Routes go to a place's mapped <strong style="color:var(--text)">entrance</strong>, with a dashed line for the last metres off the road. Closures and poor road conditions are respected, and the routing graph is rebuilt with no downtime.</p>
+    </section>
+
+    <!-- Editor -->
+    <section class="wrap p-section">
+      <h2>Map editor</h2>
+      <p class="intro">
+        A workspace for adding what OSM lacks: houses, shops, galli alleys, entrances and road closures.
+        OSM data itself is never changed. Edits are stored as overlays that survive re-imports, and they're
+        re-attached by shape when OSM splits or renumbers a feature. Every change records who made it.
+      </p>
+      <div class="gallery">
+        <figure class="wide"><div class="frame"><img src="assets/img/naksa/editor-inspector.webp" alt="Map editor workspace with layer list, map, and an inspector form for a school's Nepali and English names" loading="lazy"></div><figcaption>Editing an OSM place as a local overlay</figcaption></figure>
+        <figure><div class="frame"><img src="assets/img/naksa/editor-import.webp" alt="Import dialog with steps File, Coordinates, Columns, Check, Save and a coordinate system picker" loading="lazy"></div><figcaption>Import GeoJSON, KML, GPX or Shapefile, reprojected from UTM, MUTM or Everest</figcaption></figure>
+        <figure><div class="frame"><img src="assets/img/naksa/editor-routing-rule.webp" alt="Routing rule form for a very poor road condition, with the affected road highlighted on the map" loading="lazy"></div><figcaption>A routing rule on a road stretch, with dates</figcaption></figure>
+        <figure><div class="frame"><img src="assets/img/naksa/editor-review-after-osm-update.webp" alt="Review page listing an OSM road edit moved to a new OSM id, with a before and now shape" loading="lazy"></div><figcaption>Edits re-attached after an OSM update, listed for review</figcaption></figure>
+        <figure><div class="frame"><img src="assets/img/naksa/editor-dark.webp" alt="Dark map editor showing the edits-to-review panel beside the map" loading="lazy"></div><figcaption>The editor in dark mode</figcaption></figure>
+      </div>
+    </section>
+
+    <!-- Land records -->
+    <section class="wrap p-section" id="land">
+      <h2>Land records: an "online Malpot"</h2>
+      <p class="intro">
+        On the same database runs a land-records system modelled on Nepal's real offices. Each office is its
+        own app with its own address, logins and cookies, and all of them work one shared register. Staff
+        sign in with a password plus a 6-digit code.
+      </p>
+      <p class="note">Demo data: every person, parcel and number is fictional, and every screen is marked "DEMO · not a legal record". Parcels are drawn around real buildings. Fees and deed formats are samples.</p>
+
+      <h3>From application to new lalpurja: a parcel split</h3>
+      <ol class="flow three" style="margin-top:16px">
+        <li><strong>Owner applies (Jagga)</strong>The owner draws a rough split line and types each piece's area. The server solves the exact lines to 0.01&nbsp;m².</li>
+        <li><strong>Co-owners agree</strong>Every co-owner or heir acknowledges, online or at the office.</li>
+        <li><strong>Officer reviews (Malpot)</strong>Parties, documents and charges are checked, payment is taken, and a survey is requested.</li>
+        <li><strong>Survey measures (Napi)</strong>A surveyor enters the GNSS points of the line in the MUTM grid, and a checker approves the field book.</li>
+        <li><strong>Chief approves</strong>The chief sees exactly what will change in the register: four eyes on every change.</li>
+        <li><strong>Registered and sealed</strong>New parcel numbers (kittas) and ownership certificates (lalpurja) are issued, the old ones are voided, and the change is sealed into a hash chain.</li>
+      </ol>
+
+      <div class="app-head"><h3>Jagga</h3><span class="np">जग्गा</span><code>owners' portal</code></div>
+      <p class="app-intro">Owners see their parcels and the buildings on them, with joint and company land shown to every member. Areas appear in m², ropani-aana-paisa-daam and bigha-kattha-dhur. Owners start every change themselves: sale, gift, inheritance, partition, split, merge and more, then track it step by step.</p>
+      <div class="gallery">
+        <figure class="wide"><div class="frame"><img src="assets/img/naksa/jagga-split-editor.webp" alt="Split application form with three pieces in bigha-kattha-dhur and the coloured pieces on the map" loading="lazy"></div><figcaption>An owner splits a parcel into exact areas</figcaption></figure>
+        <figure><div class="frame"><img src="assets/img/naksa/jagga-home.webp" alt="Owners' portal home with three parcel cards showing area, sole or joint ownership and a mortgage" loading="lazy"></div><figcaption>Owner's home: parcels, shares and mortgages at a glance</figcaption></figure>
+        <figure><div class="frame"><img src="assets/img/naksa/jagga-application-tracker.webp" alt="Application page for a transfer, waiting for co-owners to agree, with the parcel highlighted on the map" loading="lazy"></div><figcaption>Tracking a sale through six steps</figcaption></figure>
+        <figure><div class="frame"><img src="assets/img/naksa/jagga-merge-application.webp" alt="Merge application for a company's kitta 1302 with 1303, both outlined on the map" loading="lazy"></div><figcaption>A company applies to merge two adjoining kittas</figcaption></figure>
+        <figure><div class="frame"><img src="assets/img/naksa/jagga-parcel-after-split.webp" alt="Parcel page marked no longer exists, listing the three kittas it became, drawn on the map" loading="lazy"></div><figcaption>After the split: traces to the new kittas</figcaption></figure>
+      </div>
+
+      <div class="app-head"><h3>Malpot</h3><span class="np">मालपोत</span><code>Land Administration Office</code></div>
+      <p class="app-intro">Staff work from a queue that shows what each application is waiting for. An officer checks identity, documents and land tax, calculates fees and capital gains tax, takes payments and issues receipts. The chief then approves. Every deed becomes a likhat, and approved changes are sealed into a tamper-evident hash chain. The office also handles mortgages, court orders, tenants, certified copies and a printable day book.</p>
+      <div class="gallery">
+        <figure><div class="frame"><img src="assets/img/naksa/malpot-queue.webp" alt="Land office desk with summary counts, filter chips and a table of applications" loading="lazy"></div><figcaption>The officer's queue shows what each application waits for</figcaption></figure>
+        <figure><div class="frame"><img src="assets/img/naksa/malpot-office-review.webp" alt="Application case with stage bar, parcel map, parties, documents and sample fees" loading="lazy"></div><figcaption>An officer reviews a transfer step by step</figcaption></figure>
+        <figure><div class="frame"><img src="assets/img/naksa/malpot-split-review.webp" alt="Split case with three pieces on the map, areas per piece and a Request survey button" loading="lazy"></div><figcaption>Checking a split and requesting the survey</figcaption></figure>
+        <figure><div class="frame"><img src="assets/img/naksa/malpot-chief-approval.webp" alt="Chief's approval screen with register diff, four ticked checks and the hash-chain record" loading="lazy"></div><figcaption>The chief sees exactly what changes before approving</figcaption></figure>
+        <figure><div class="frame"><img src="assets/img/naksa/malpot-deed-print.webp" alt="Printable sale deed with number, parties, price, valuation, witnesses and a SAMPLE warning" loading="lazy"></div><figcaption>A printed likhat (deed) with its SHA-256</figcaption></figure>
+        <figure><div class="frame"><img src="assets/img/naksa/malpot-day-book.webp" alt="Day book with totals for the office and capital gains tax and a list of receipts" loading="lazy"></div><figcaption>Day book: receipts by charge, printable</figcaption></figure>
+      </div>
+
+      <div class="app-head"><h3>Napi</h3><span class="np">नापी</span><code>Survey Office</code></div>
+      <p class="app-intro">A split is measured on the ground before it's registered. The survey office holds map sheets, control points and append-only field books, and it handles boundary marking, disputes and land-acquisition surveys. It also has a public kitta look-up that needs no login.</p>
+      <div class="gallery">
+        <figure><div class="frame"><img src="assets/img/naksa/napi-split-measurement.webp" alt="Split survey job with proposed lines on the map and easting and northing fields for four points" loading="lazy"></div><figcaption>A surveyor enters GNSS points in MUTM coordinates</figcaption></figure>
+        <figure><div class="frame"><img src="assets/img/naksa/napi-job-board.webp" alt="Survey office board with columns for surveyor, being measured, checker, survey officer and land office" loading="lazy"></div><figcaption>The job board, sorted by whose turn it is</figcaption></figure>
+        <figure><div class="frame"><img src="assets/img/naksa/napi-land-acquisition.webp" alt="Project page with a road strip drawn across parcels and the area taken from each kitta" loading="lazy"></div><figcaption>A land-acquisition survey for a road widening</figcaption></figure>
+        <figure><div class="frame"><img src="assets/img/naksa/napi-public-kitta-lookup.webp" alt="Public parcel page with area in ropani, the four boundaries and the parcel highlighted on the map" loading="lazy"></div><figcaption>Public kitta look-up: area, the four boundaries (char killa), road access</figcaption></figure>
+      </div>
+
+      <div class="feature" style="margin-top:56px;margin-bottom:0">
+        <div class="feature-text">
+          <div class="app-head" style="margin-top:0"><h3>Palika</h3><span class="np">पालिका</span><code>local land desk</code></div>
+          <p>The same land-office services offered by local government, with its own staff, working on the same register. Here a tenancy is ended and sent to the palika chief for approval.</p>
+        </div>
+        <div class="gallery one">
+          <figure><div class="frame"><img src="assets/img/naksa/palika-tenancy.webp" alt="Palika land desk with a kitta record and a drawer confirming a tenancy end was sent for approval" loading="lazy"></div><figcaption>The palika desk ends a tenancy, pending the chief's approval</figcaption></figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- Languages -->
+    <section class="wrap p-section">
+      <h2>नेपाली and English</h2>
+      <p class="intro">Every app can be switched between the two languages on every page. In Nepali mode it uses Devanagari digits, Bikram Sambat dates and ropani or bigha, and office terms follow the real Malpot and Napi forms.</p>
+      <div class="gallery">
+        <figure><div class="frame"><img src="assets/img/naksa/jagga-nepali.webp" alt="Parcel page fully in Devanagari with Nepali digits and the parcel on the map" loading="lazy"></div><figcaption>The owners' portal in Nepali</figcaption></figure>
+        <figure><div class="frame"><img src="assets/img/naksa/malpot-nepali-dark.webp" alt="Dark land office desk with all labels and numbers in Devanagari" loading="lazy"></div><figcaption>The land office desk in Nepali, dark mode</figcaption></figure>
+      </div>
+    </section>
+
+    <!-- Architecture -->
+    <section class="wrap p-section">
+      <h2>Architecture</h2>
+      <p class="intro">Everything is stored in PostGIS and transformed to Web Mercator only for tiles. The land apps reach map data only through SQL API functions, and each program has its own database login.</p>
+      <div class="arch">
+        <svg viewBox="0 0 960 370" role="img" aria-label="Naksa architecture: an OSM extract is loaded by osm2pgsql into PostGIS. Three Go programs (naksa-map, naksa-land, naksa-survey) read PostGIS. naksa-map also feeds OSRM. Caddy routes requests by hostname to the browser apps.">
+          <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z"/></marker></defs>
+          <g class="n"><rect x="10" y="90" width="160" height="72" rx="12"/><text x="28" y="120">OpenStreetMap</text><text class="s" x="28" y="144">.pbf extract</text></g>
+          <g class="n hl"><rect x="250" y="60" width="200" height="132" rx="12"/><text x="270" y="92">PostGIS</text><text class="s" x="270" y="118">osm · map</text><text class="s" x="270" y="138">landmgmt · cadastre</text><text class="s" x="270" y="164">EPSG:4326</text></g>
+          <g class="n"><rect x="530" y="20" width="220" height="64" rx="12"/><text x="548" y="47">naksa-map (Go)</text><text class="s" x="548" y="69">tiles · search · editor</text></g>
+          <g class="n"><rect x="530" y="100" width="220" height="64" rx="12"/><text x="548" y="127">naksa-land (Go)</text><text class="s" x="548" y="149">Jagga · Malpot · Palika</text></g>
+          <g class="n"><rect x="530" y="180" width="220" height="64" rx="12"/><text x="548" y="207">naksa-survey (Go)</text><text class="s" x="548" y="229">Napi · parcel tiles</text></g>
+          <g class="n"><rect x="530" y="282" width="220" height="64" rx="12"/><text x="548" y="309">OSRM</text><text class="s" x="548" y="331">car + foot profiles</text></g>
+          <g class="n"><rect x="820" y="60" width="130" height="80" rx="12"/><text x="838" y="92">Caddy</text><text class="s" x="838" y="116">by hostname</text></g>
+          <g class="n hl"><rect x="820" y="190" width="130" height="96" rx="12"/><text x="838" y="220">Browser</text><text class="s" x="838" y="244">MapLibre GL</text><text class="s" x="838" y="264">6 apps</text></g>
+          <path class="e" d="M170,126 L248,126"/><text class="lbl" x="176" y="116">osm2pgsql</text>
+          <path class="e" d="M450,90 C490,90 490,52 528,52"/><text class="lbl" x="456" y="62">ST_AsMVT</text>
+          <path class="e" d="M450,128 L528,132"/>
+          <path class="e" d="M450,165 C490,165 490,212 528,212"/>
+          <path class="e dash" d="M530,64 C500,64 500,314 528,314"/><text class="lbl" x="462" y="290">routing.osm</text>
+          <path class="e" d="M750,52 C785,52 785,90 818,90"/>
+          <path class="e" d="M750,132 L818,112"/>
+          <path class="e" d="M750,212 C790,212 790,130 818,130"/>
+          <path class="e" d="M750,314 C790,314 790,138 820,138"/>
+          <path class="e" d="M885,140 L885,188"/>
+        </svg>
+      </div>
+      <div class="cols three" style="margin-top:20px">
+        <div class="card"><h4>Backend</h4><ul><li>Go 1.26: one module, vendored dependencies</li><li>PostgreSQL 16 + PostGIS 3.4</li><li>goose migrations plus repeatable SQL views</li></ul></div>
+        <div class="card"><h4>Map pipeline</h4><ul><li>osm2pgsql with a Lua flex style</li><li>Vector tiles via ST_AsMVT, gzipped with ETags</li><li>OSRM rebuilt next to the live graph, then swapped in</li></ul></div>
+        <div class="card"><h4>Front end and ops</h4><ul><li>MapLibre GL JS, plain JavaScript modules, no build step</li><li>Caddy, Docker Compose, k3s</li><li>Playwright tests on a separate test stack</li></ul></div>
+      </div>
+    </section>
+
+    <!-- Decisions -->
+    <section class="wrap p-section">
+      <h2>Engineering decisions</h2>
+      <div class="decisions">
+        <div class="decision"><h4>OSM stays read-only; our changes are overlays</h4><p>Each edit remembers its feature's shape and is re-attached after every OSM import. Unclear cases go to a review list, because guessing silently would be worse than asking.</p></div>
+        <div class="decision"><h4>Getting our alleys into routing</h4><p>OSRM only reads OSM files, and roads connect only through shared nodes. So the routing input is regenerated with junction nodes inserted wherever our alleys meet OSM roads.</p></div>
+        <div class="decision"><h4>A 50 m closure blocks 50 m</h4><p>Routing rules split roads at their ends instead of closing whole OSM ways, which are often hundreds of metres long. Rules are matched by shape at every rebuild, so they survive OSM updates.</p></div>
+        <div class="decision"><h4>Four-eyes approval and a hash chain</h4><p>A land change is tried out in a transaction that's rolled back, then approved by a second person, then sealed into a hash chain. Direct database edits become detectable without a blockchain.</p></div>
+        <div class="decision"><h4>Node.js → Go with identical hashes</h4><p>The land ledger's hashes were computed from JavaScript's JSON output. The Go port reproduces <code>JSON.stringify</code> exactly, so every old record still verifies.</p></div>
+        <div class="decision"><h4>Datum shifts are explicit</h4><p>In Nepal, PROJ's default Everest → WGS 84 conversion silently applies no shift, which is about 148&nbsp;m of error. Uploads therefore accept a custom PROJ string for MUTM and Everest data.</p></div>
+        <div class="decision"><h4>Search and tiles at national scale</h4><p>Trigram indexes on the live OSM tables keep search at 70–210&nbsp;ms over all of Nepal without a copy that goes stale. Zoomed-out tiles are simplified and precomputed, which cut zoom 8 from 900&nbsp;ms to 164&nbsp;ms.</p></div>
+      </div>
+    </section>
+
+    <section class="wrap p-section">
+      <h2>Status</h2>
+      <div class="status">
+        <div class="card"><h4><span class="dot"></span> Built</h4><p>Public map, map editor, routing with nightly rebuilds, all four land-records apps with their desks, printing, logins and roles, and both languages. All of Nepal has been imported, and a test deployment with demo records is running.</p></div>
+        <div class="card"><h4><span class="dot open"></span> Next</h4><p>A full-Nepal PMTiles bake and a CDN for tiles, database backups, a motorbike routing profile, official fee tables and deed formats, GNSS device import for field books, and contributing edits back to OSM.</p></div>
+      </div>
+      <p class="prose" style="margin-top:20px;font-size:13.5px">Map data © OpenStreetMap contributors (ODbL). Inspired by Galli Maps; not affiliated with it, and no Galli Maps endpoints or data are used.</p>
+    </section>
+
+    <div class="wrap next-project">
+      <a href="ktmail.html"><small>← Previous</small><strong>ktmail</strong></a>
+      <a class="r" href="cipher.html"><small>Next →</small><strong>Cipher</strong></a>
+    </div>
+  </main>
+
+  <footer class="wrap footer">
+    <p>© <span id="year">2026</span> KTM Tech · Kathmandu · Source code is private, <a href="private.html?repo=naksa">request access</a></p>
+  </footer>
+  <script src="site.js"></script>
+</body>
+</html>
