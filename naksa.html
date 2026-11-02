@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Naksa — Nepal Map</title>
-  <meta name="description" content="Naksa: a self-hosted map of Nepal built end to end from OpenStreetMap, with its own tiles, search, routing, a map editor and a land-records system.">
+  <meta name="description" content="Naksa: taking Nepal's land administration fully online, from an owner's application to registration, on a self-hosted map of Nepal.">
   <meta property="og:title" content="Naksa (नक्सा) — a self-hosted Nepal map">
   <meta property="og:image" content="assets/img/naksa/map-light.webp">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%23c2410c'/><text x='16' y='22' font-family='monospace' font-size='16' font-weight='700' fill='white' text-anchor='middle'>kt</text></svg>">
@@ -41,10 +41,15 @@
       <p class="eyebrow">Maps · GIS · Land records</p>
       <h1>Naksa <span class="np">नक्सा</span></h1>
       <p class="lede">
-        A self-hosted map of Nepal, built end to end from OpenStreetMap: our own vector tiles,
-        search, and driving and walking directions, plus a map editor for the local detail OSM lacks.
-        On top of it runs a working land-records system with the owners' portal, the land office
-        (Malpot), the palika desk and the survey office (Napi), all in नेपाली and English.
+        Naksa aims to automate land administration in Nepal and take the whole process online, from a
+        land owner's application to the final registration. Owners apply from home for a sale, transfer,
+        gift, inheritance, split or merge. The land office (Malpot), the survey office (Napi) and the palika
+        handle each case in their own apps, on one shared register.
+      </p>
+      <p class="lede" style="font-size:17px">
+        Underneath is a self-hosted map of Nepal, built end to end from OpenStreetMap, with our own vector
+        tiles, search, and driving and walking directions, plus a map editor for the local detail OSM lacks.
+        Everything works in नेपाली and English.
       </p>
       <ul class="tags"><li>Go</li><li>PostgreSQL + PostGIS</li><li>osm2pgsql</li><li>OSRM</li><li>MapLibre GL JS</li><li>Caddy</li><li>Playwright</li></ul>
       <div class="cta" style="margin-bottom:28px"><a class="btn primary" href="https://naksa.himalcloud.com" target="_blank" rel="noopener">Open the live map ↗</a><a class="btn" href="#demo">All six live apps</a></div>
@@ -135,9 +140,21 @@
     <section class="wrap p-section" id="land">
       <h2>Land records: an "online Malpot"</h2>
       <p class="intro">
-        On the same database runs a land-records system modelled on Nepal's real offices. Each office is its
-        own app with its own address, logins and cookies, and all of them work one shared register. Staff
-        sign in with a password plus a 6-digit code.
+        The goal is to automate land administration and make every land operation available online, so
+        owners no longer have to carry paper files between offices. An owner starts a case from home,
+        co-owners and heirs agree online, each office does its part in its own app, and the owner follows
+        every step until the new lalpurja is issued.
+      </p>
+      <div class="ops">
+        <div><h4>Owners can apply online for</h4>
+          <ul class="tags"><li>Sale (राजीनामा)</li><li>Transfer</li><li>Gift</li><li>Gift after death</li><li>Donation</li><li>Inheritance</li><li>Partition</li><li>Exchange</li><li>Split (कित्ताकाट)</li><li>Merge</li><li>A house on the land</li></ul></div>
+        <div><h4>The offices also handle</h4>
+          <ul class="tags"><li>Mortgages and freezes (रोक्का)</li><li>Court decisions</li><li>Corrections</li><li>Tenancies (मोही)</li><li>Certified copies</li><li>Fees, tax and receipts</li><li>Field surveys</li><li>Land acquisition</li></ul></div>
+      </div>
+      <p class="intro">
+        The system is modelled on Nepal's real offices. Each office is its own app with its own address,
+        logins and cookies, and all of them work one shared register. Staff sign in with a password plus
+        a 6-digit code.
       </p>
       <p class="note">Demo data: every person, parcel and number is fictional, and every screen is marked "DEMO · not a legal record". Parcels are drawn around real buildings. Fees and deed formats are samples.</p>
 
