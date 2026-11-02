@@ -20,7 +20,14 @@
       <a class="brand" href="#top"><span class="logo">kt</span> ktmtech-np</a>
       <nav>
         <a href="#about">About</a>
-        <a href="#projects">Projects</a>
+        <div class="dd">
+          <a href="#projects" aria-haspopup="true">Projects ▾</a>
+          <div class="dd-menu">
+            <a href="naksa.html"><strong>Naksa</strong><span>Nepal map &amp; land records</span></a>
+            <a href="cipher.html"><strong>Cipher</strong><span>Encrypted chat &amp; calls</span></a>
+            <a href="ktmail.html"><strong>ktmail</strong><span>Mail server in Rust</span></a>
+          </div>
+        </div>
         <a href="#approach">Approach</a>
         <a href="#contact">Contact</a>
         <button id="theme" class="theme-btn" aria-label="Toggle dark mode">◐</button>
@@ -45,6 +52,11 @@
       <div class="cta">
         <a class="btn primary" href="#projects">See the projects</a>
         <a class="btn" href="https://github.com/ktmtech-np" target="_blank" rel="noopener">GitHub ↗</a>
+      </div>
+      <div class="quick">
+        <a href="naksa.html"><img src="assets/img/naksa-map-light.webp" alt="" loading="lazy"><span><small>Maps · Land records</small><strong>Naksa →</strong></span></a>
+        <a href="cipher.html"><img src="assets/img/cipher/conversation.webp" alt="" loading="lazy"><span><small>Encrypted chat</small><strong>Cipher →</strong></span></a>
+        <a href="ktmail.html"><img src="assets/img/ktmail/inbox.webp" alt="" loading="lazy"><span><small>Mail server</small><strong>ktmail →</strong></span></a>
       </div>
     </section>
 
@@ -252,6 +264,7 @@
   </main>
 
   <footer class="wrap footer">
+    <p class="foot-links"><a href="naksa.html">Naksa</a> · <a href="cipher.html">Cipher</a> · <a href="ktmail.html">ktmail</a></p>
     <p>© <span id="year">2026</span> KTM Tech · Kathmandu</p>
   </footer>
 

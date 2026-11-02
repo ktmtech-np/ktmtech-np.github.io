@@ -23,7 +23,14 @@
       <a class="brand" href="./"><span class="logo">kt</span> ktmtech-np</a>
       <nav>
         <a href="./#about">About</a>
-        <a href="./#projects">Projects</a>
+        <div class="dd">
+          <a href="./#projects" aria-haspopup="true">Projects ▾</a>
+          <div class="dd-menu">
+            <a href="naksa.html"><strong>Naksa</strong><span>Nepal map &amp; land records</span></a>
+            <a href="cipher.html"><strong>Cipher</strong><span>Encrypted chat &amp; calls</span></a>
+            <a href="ktmail.html"><strong>ktmail</strong><span>Mail server in Rust</span></a>
+          </div>
+        </div>
         <a href="./#contact">Contact</a>
         <button id="theme" class="theme-btn" aria-label="Toggle dark mode">◐</button>
       </nav>
@@ -242,6 +249,7 @@ if address :domain :is "from" "billing.example" {
   </main>
 
   <footer class="wrap footer">
+    <p class="foot-links"><a href="naksa.html">Naksa</a> · <a href="cipher.html">Cipher</a> · <a href="ktmail.html">ktmail</a></p>
     <p>© <span id="year">2026</span> KTM Tech · Kathmandu · Source code is private, <a href="private.html?repo=ktmail">request access</a></p>
   </footer>
   <script src="site.js"></script>
