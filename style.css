@@ -191,3 +191,36 @@ a.contact-card:hover { border-color: var(--accent); }
   .quick a { flex-direction: row; align-items: center; }
   .quick img { width: 110px; aspect-ratio: 4/3; border-bottom: 0; border-right: 1px solid var(--line); }
 }
+
+/* approach */
+.approach { margin-bottom: 112px; }
+.approach-head { display: grid; grid-template-columns: 1fr 1.4fr; gap: 48px; align-items: end; margin-bottom: 36px; }
+.approach-head h3 { font-size: clamp(28px, 4vw, 38px); letter-spacing: -.02em; line-height: 1.1; margin: 0; }
+.approach-head p { color: var(--muted); font-size: 17px; margin: 0; }
+.principles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; border: 1px solid var(--line); border-radius: 16px; background: var(--surface); overflow: hidden; }
+.principle { padding: 28px 26px; display: flex; flex-direction: column; border-right: 1px solid var(--line); }
+.principle:last-child { border-right: 0; }
+.principle .num { font: 600 13px "JetBrains Mono", monospace; color: var(--accent); margin-bottom: 18px; }
+.principle h4 { font-size: 18px; margin: 0 0 10px; letter-spacing: -.01em; }
+.principle > p { color: var(--muted); font-size: 14.5px; margin: 0 0 20px; }
+.principle .evidence { margin: auto 0 0; padding-top: 16px; border-top: 1px dashed var(--line); font-size: 13.5px; color: var(--text); }
+.principle .evidence span { display: block; font: 600 11px "JetBrains Mono", monospace; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin-bottom: 6px; }
+@media (max-width: 1000px) {
+  .principles { grid-template-columns: repeat(2, 1fr); }
+  .principle:nth-child(2) { border-right: 0; }
+  .principle:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
+}
+@media (max-width: 860px) { .approach-head { grid-template-columns: 1fr; gap: 14px; } .approach { margin-bottom: 80px; } }
+@media (max-width: 560px) {
+  .principles { grid-template-columns: 1fr; }
+  .principle { border-right: 0; border-bottom: 1px solid var(--line); }
+  .principle:last-child { border-bottom: 0; }
+}
+.approach-head { align-items: start; }
+@supports (grid-template-rows: subgrid) {
+  .principles { grid-template-rows: auto auto 1fr auto; }
+  .principle { display: grid; grid-template-rows: subgrid; grid-row: span 4; align-content: start; }
+  .principle .evidence { margin: 0; align-self: stretch; }
+  @media (max-width: 1000px) { .principles { grid-template-rows: auto auto 1fr auto auto auto 1fr auto; } }
+  @media (max-width: 560px) { .principles { grid-template-rows: none; } .principle { display: flex; grid-row: auto; } }
+}

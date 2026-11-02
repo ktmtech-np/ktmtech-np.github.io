@@ -229,19 +229,35 @@
 
     <section id="approach" class="wrap approach">
       <h2 class="section-title">Approach</h2>
-      <div class="grid3">
-        <div class="card">
-          <h4>Plan, then build in phases</h4>
-          <p>Every project starts with a written plan. Each phase has exit criteria and commands that verify it, and decisions are recorded when the build departs from the plan.</p>
-        </div>
-        <div class="card">
-          <h4>Own the stack</h4>
-          <p>Self-hosted from the data to the protocol: our own tiles, our own crypto core, our own mail server, run with standard tools on hardware we control.</p>
-        </div>
-        <div class="card">
-          <h4>Prove it works</h4>
-          <p>Thousands of automated checks, fuzzing, failure tests that kill nodes mid-call, and end-to-end browser tests with screenshots.</p>
-        </div>
+      <div class="approach-head">
+        <h3>How I build systems</h3>
+        <p>The same four principles guide every project, from a payment integration to a mail server: define the problem precisely, design for security from the start, verify every layer, and build something that can be operated with confidence.</p>
+      </div>
+      <div class="principles">
+        <article class="principle">
+          <span class="num">01</span>
+          <h4>Design before code</h4>
+          <p>Each project starts with written requirements and an architecture. Delivery is split into phases with measurable exit criteria, and every significant change of direction is recorded as a decision.</p>
+          <p class="evidence"><span>In practice</span>Naksa's business and software requirements cover 185 HTTP routes. Cipher was delivered in 16 phases with 30+ recorded decisions.</p>
+        </article>
+        <article class="principle">
+          <span class="num">02</span>
+          <h4>Secure by design</h4>
+          <p>Security is part of the architecture, not added afterwards. That means minimal trust in the server, least privilege for every component, memory-safe code, and strict limits on all external input.</p>
+          <p class="evidence"><span>In practice</span>Cipher's private keys never exist in JavaScript, and its network is default-deny. ktmail forbids <code>unsafe</code> code and runs in a Landlock sandbox.</p>
+        </article>
+        <article class="principle">
+          <span class="num">03</span>
+          <h4>Verified at every layer</h4>
+          <p>Unit, contract, browser and failure tests run on separate test environments. Parsers are fuzzed, and performance claims rest on measured benchmarks, not estimates.</p>
+          <p class="evidence"><span>In practice</span>2,600+ automated checks, 25 fuzz targets, and failover tests that kill a node mid-call without losing a message.</p>
+        </article>
+        <article class="principle">
+          <span class="num">04</span>
+          <h4>Built to operate</h4>
+          <p>Systems are designed to be deployed, monitored and upgraded safely: repeatable deployments, observability from day one, documented capacity limits, and updates without downtime.</p>
+          <p class="evidence"><span>In practice</span>Kubernetes deployments with Prometheus, Loki and Grafana. Naksa rebuilds its routing graph with no downtime, and ktmail migrates a live Postfix and Dovecot server without clients noticing.</p>
+        </article>
       </div>
     </section>
 
